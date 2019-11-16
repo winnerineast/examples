@@ -97,7 +97,7 @@ class ModelDataHandler: NSObject {
 
     // Specify the options for the `Interpreter`.
     self.threadCount = threadCount
-    var options = Interpreter.Options()
+    var options = InterpreterOptions()
     options.threadCount = threadCount
     do {
       // Create the `Interpreter`.
@@ -190,6 +190,9 @@ class ModelDataHandler: NSObject {
   /// sorted in descending order.
   func formatResults(boundingBox: [Float], outputClasses: [Float], outputScores: [Float], outputCount: Int, width: CGFloat, height: CGFloat) -> [Inference]{
     var resultsArray: [Inference] = []
+    if (outputCount == 0) {
+      return resultsArray
+    }
     for i in 0...outputCount - 1 {
 
       let score = outputScores[i]
